@@ -20,8 +20,8 @@
   .brand b{color:var(--ember);font-weight:normal}
   .logo-chip{background:#f2f0eb;border-radius:12px;padding:5px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
   .logo-chip img{height:40px;width:40px;object-fit:contain;display:block}
-  nav{display:flex;flex-wrap:wrap}
-  nav a{color:var(--muted);text-decoration:none;margin-left:15px;font-size:14.5px}
+  nav{display:flex;flex-wrap:wrap;gap:8px 15px}
+  nav a{color:var(--muted);text-decoration:none;font-size:14.5px}
   nav a:hover{color:var(--ember2)}
   nav a[aria-current="page"]{color:var(--ember2)}
   .page-head{max-width:1120px;margin:0 auto;padding:72px 20px 8px}
@@ -34,22 +34,27 @@
   .prose{max-width:720px}
   .prose p{color:#d8d5cc;font-size:17.5px;margin-bottom:18px}
   .prose p.lead{font-size:19.5px;color:var(--text)}
+  .lead{color:#d8d5cc;max-width:680px;margin-top:28px;font-size:18px;line-height:1.65}
+  .prose p:last-child{margin-bottom:0}
   .mark-card{background:linear-gradient(135deg,#1a130f,#121218);border:1px solid var(--line);border-radius:18px;padding:36px 30px;display:flex;gap:30px;align-items:center;flex-wrap:wrap}
   .mark-card .logo-chip{border-radius:20px;padding:14px}
   .mark-card .logo-chip img{height:110px;width:110px}
   .mark-card .txt{flex:1;min-width:min(260px,100%)}
   .mark-card p{color:var(--muted);margin-top:20px;font-size:16.5px;max-width:640px}
-  .cta{margin-top:10px;display:flex;gap:14px;flex-wrap:wrap}
+  .cta{margin-top:32px;display:flex;gap:14px;flex-wrap:wrap}
+  .cta-row{padding-top:24px}
+  .cta-row .cta{margin-top:0}
   .btn{display:inline-block;padding:13px 26px;border-radius:999px;text-decoration:none;font-size:16px;border:1px solid var(--ember);transition:.2s}
   .btn-primary{background:var(--ember);color:#140b05}
   .btn-primary:hover{background:var(--ember2);border-color:var(--ember2)}
   .btn-ghost{color:var(--text);border-color:#4a4a55;background:rgba(11,11,15,.5)}
   .btn-ghost:hover{border-color:var(--ember);color:var(--ember2)}
   footer{border-top:1px solid var(--line);margin-top:72px}
-  .foot-in{max-width:1120px;margin:0 auto;padding:34px 20px 44px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:15px}
-  .foot-in a{color:var(--muted);text-decoration:none;margin-right:18px}
+  .foot-in{max-width:1120px;margin:0 auto;padding:36px 20px 36px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:15px}
+  .foot-in a{color:var(--muted);text-decoration:none}
   .foot-in a:hover{color:var(--ember2)}
-  @media (max-width:560px){ nav a{margin-left:11px} }
+  .foot-in > div:first-child{display:flex;flex-wrap:wrap;gap:8px 18px}
+  @media (max-width:560px){ nav{gap:8px 11px} .mark-card{padding:28px 22px} }
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3909348422591403" crossorigin="anonymous"></script>
 </head>
@@ -76,13 +81,8 @@
 <div class="page-head">
   <div class="kicker">About Us</div>
   <h1>A small studio built on <em>design</em>, not decoration.</h1>
+  <p class="lead">We are a small digital design studio in Virginia. Everything in the shop is ours: made by us, or chosen by us and finished by us, and looked over once more before it goes up. New work arrives a little at a time.</p>
 </div>
-
-<section>
-  <div class="prose">
-    <p class="lead">We are a small digital design studio in Virginia. Everything in the shop is made by us or chosen and finished by us, checked before it goes up, and we put new work up a little at a time.</p>
-  </div>
-</section>
 
 <section>
   <h2>Our <span class="accent">story</span></h2>
@@ -113,7 +113,7 @@
   </div>
 </section>
 
-<section>
+<section class="cta-row">
   <div class="cta">
     <a class="btn btn-primary" href="blooming-duo.html">View the Blooming Duo collection</a>
     <a class="btn btn-ghost" href="index.html">Back to home</a>
