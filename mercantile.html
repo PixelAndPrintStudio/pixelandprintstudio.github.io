@@ -20,51 +20,54 @@
   .brand b{color:var(--ember);font-weight:normal}
   .logo-chip{background:#f2f0eb;border-radius:12px;padding:5px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto}
   .logo-chip img{height:40px;width:40px;object-fit:contain;display:block}
-  nav{display:flex;flex-wrap:wrap}
-  nav a{color:var(--muted);text-decoration:none;margin-left:15px;font-size:14.5px}
+  nav{display:flex;flex-wrap:wrap;gap:8px 15px}
+  nav a{color:var(--muted);text-decoration:none;font-size:14.5px}
   nav a:hover{color:var(--ember2)}
   nav a[aria-current="page"]{color:var(--ember2)}
   section{max-width:1120px;margin:0 auto;padding:64px 20px 8px}
   h2{font-size:clamp(27px,3.8vw,38px);font-weight:normal;line-height:1.25;margin-bottom:14px}
   h2 .accent{color:var(--ember)}
   .sub{color:var(--muted);max-width:680px;margin-bottom:36px;font-size:17px}
-  .panel{background:linear-gradient(135deg,#1a130f,#121218);border:1px solid var(--line);border-radius:18px;padding:36px 30px;margin-bottom:12px}
+  .panel{background:linear-gradient(135deg,#1a130f,#121218);border:1px solid var(--line);border-radius:18px;padding:36px 30px;margin-bottom:0}
   .panel p{color:var(--muted);max-width:700px;margin-top:20px;font-size:16.5px}
   footer{border-top:1px solid var(--line);margin-top:72px}
-  .foot-in{max-width:1120px;margin:0 auto;padding:34px 20px 44px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:15px}
-  .foot-in a{color:var(--muted);text-decoration:none;margin-right:18px}
+  .foot-in{max-width:1120px;margin:0 auto;padding:36px 20px 36px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted);font-size:15px}
+  .foot-in a{color:var(--muted);text-decoration:none}
   .foot-in a:hover{color:var(--ember2)}
+  .foot-in > div:first-child{display:flex;flex-wrap:wrap;gap:8px 18px}
   /* Pine & Ember Mercantile: editorial presentation */
-  .crest-head{max-width:860px;margin:0 auto;padding:96px 20px 8px;text-align:center}
+  .crest-head{max-width:860px;margin:0 auto;padding:72px 20px 8px;text-align:center}
   .crest-plate{background:#f2f0eb;border-radius:6px;padding:30px 34px;display:inline-flex;align-items:center;justify-content:center}
   .crest-plate img{height:168px;width:168px;object-fit:contain;display:block}
-  .crest-head .kicker{color:var(--ember2);letter-spacing:.34em;text-transform:uppercase;font-size:12.5px;margin:44px 0 16px}
+  .crest-head .kicker{color:var(--ember2);letter-spacing:.34em;text-transform:uppercase;font-size:12.5px;margin:28px 0 16px}
   .crest-head h1{font-size:clamp(42px,6.5vw,68px);font-weight:normal;line-height:1.12;margin-bottom:4px;letter-spacing:.01em}
   .crest-head h1 em{color:var(--ember2);font-style:italic}
-  .rule{width:64px;height:1px;background:var(--ember);margin:34px auto}
-  .crest-head .lead{color:#d8d5cc;font-size:19px;line-height:1.75;max-width:640px;margin:28px auto 0}
-  .ed-section{max-width:860px;margin:0 auto;padding:88px 20px 8px}
+  .rule{width:64px;height:1px;background:var(--ember);margin:20px auto}
+  .crest-head .lead{color:#d8d5cc;font-size:19px;line-height:1.65;max-width:640px;margin:28px auto 0}
+  .ed-section{max-width:860px;margin:0 auto;padding:64px 20px 8px}
   .ed-section h2{text-align:center;font-size:clamp(29px,4vw,40px);line-height:1.25}
-  .ed-section .sub{text-align:center;margin:14px auto 0;max-width:620px;line-height:1.75}
-  .ed-note{max-width:680px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.8;text-align:center}
+  .ed-section .sub{text-align:center;margin:14px auto 36px;max-width:620px;line-height:1.65}
+  .ed-note{max-width:680px;margin:0 auto;color:var(--muted);font-size:17px;line-height:1.65;text-align:center}
   .ed-note b{color:var(--text);font-weight:normal}
-  .row{border-top:1px solid var(--line);padding:52px 0 8px;margin-top:52px;text-align:center}
-  .row:first-of-type{border-top:none;margin-top:44px;padding-top:8px}
+  #mark .ed-note{margin-top:14px}
+  #line .ed-note{margin-top:36px}
+  .row{border-top:1px solid var(--line);padding:36px 0 8px;margin-top:36px;text-align:center}
+  .row:first-of-type{border-top:none}
   .row .no{color:var(--ember2);letter-spacing:.3em;text-transform:uppercase;font-size:12px}
-  .row h3{font-size:clamp(26px,3.4vw,34px);font-weight:normal;margin:14px 0 12px}
-  .row p{color:var(--muted);font-size:17px;line-height:1.8;max-width:600px;margin:0 auto}
+  .row h3{font-size:clamp(26px,3.4vw,34px);font-weight:normal;line-height:1.25;margin:10px 0 8px}
+  .row p{color:var(--muted);font-size:17px;line-height:1.65;max-width:600px;margin:0 auto}
   .row .view{display:inline-block;margin-top:22px;color:var(--ember2);text-decoration:none;font-size:15.5px;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--ember);padding-bottom:5px}
   .row .view:hover{color:var(--text);border-color:var(--text)}
-  .ed-panel{background:linear-gradient(135deg,#1a130f,#121218);border:1px solid var(--line);border-radius:18px;padding:56px 40px;text-align:center}
+  .ed-panel{background:linear-gradient(135deg,#1a130f,#121218);border:1px solid var(--line);border-radius:18px;padding:36px 30px;text-align:center}
   .ed-panel h2{margin-bottom:14px}
-  .ed-panel p{color:var(--muted);max-width:620px;margin:0 auto;font-size:17px;line-height:1.8}
-  .btn-line{display:inline-block;margin-top:30px;padding:14px 32px;border:1px solid var(--ember);border-radius:3px;color:var(--text);text-decoration:none;font-size:15.5px;letter-spacing:.1em;text-transform:uppercase;transition:.2s}
+  .ed-panel p{color:var(--muted);max-width:620px;margin:20px auto 0;font-size:17px;line-height:1.65}
+  .btn-line{display:inline-block;margin-top:20px;padding:13px 26px;border:1px solid var(--ember);border-radius:3px;color:var(--text);text-decoration:none;font-size:15.5px;letter-spacing:.1em;text-transform:uppercase;transition:.2s}
   .btn-line:hover{background:var(--ember);color:#140b05}
-  .notes{max-width:680px;margin:44px auto 0}
-  .note{border-top:1px solid var(--line);padding:26px 0;text-align:center}
+  .notes{max-width:680px;margin:0 auto}
+  .note{border-top:1px solid var(--line);padding:22px 0;text-align:center}
   .note h3{font-weight:normal;font-size:20px;margin-bottom:8px}
-  .note p{color:var(--muted);font-size:16px;line-height:1.75}
-  @media (max-width:560px){ nav a{margin-left:11px} .crest-plate img{height:132px;width:132px} .ed-panel{padding:40px 24px} .ed-section{padding-top:64px} .crest-head{padding-top:72px} }
+  .note p{color:var(--muted);font-size:16px;line-height:1.65}
+  @media (max-width:560px){ nav{gap:8px 11px} .crest-plate img{height:132px;width:132px} .ed-panel{padding:28px 22px} }
 </style>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3909348422591403" crossorigin="anonymous"></script>
 </head>
@@ -99,7 +102,7 @@
 
 <section class="ed-section" id="mark">
   <h2>The <span class="accent">mark</span></h2>
-  <p class="ed-note" style="margin-top:22px">We drew it small, the way the old outdoor brands put <b>one mark on a chest and left it at that.</b> It stands for something rooted and quiet, lit by a warm glow.</p>
+  <p class="ed-note">We drew it small, the way the old outdoor brands put <b>one mark on a chest and left it at that.</b> It stands for something rooted and quiet, lit by a warm glow.</p>
 </section>
 
 <section class="ed-section" id="line">
@@ -127,7 +130,7 @@
     <a class="view" href="https://www.redbubble.com/people/pixelsandprint/shop">View the collection</a>
   </div>
 
-  <p class="ed-note" style="margin-top:48px"><b>If a group is not in the shop yet, it is still on the worktable, not forgotten.</b></p>
+  <p class="ed-note"><b>If a group is not in the shop yet, it is still on the worktable, not forgotten.</b></p>
 </section>
 
 <section class="ed-section" id="channel">
