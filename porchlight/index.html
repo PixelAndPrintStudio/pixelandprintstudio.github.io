@@ -4,19 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Porchlight</title>
-<meta name="theme-color" content="#FAF6F0">
+<meta name="theme-color" content="#191612">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Porchlight">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" type="image/svg+xml" href="icon.svg">
 <style>
   :root{
-    --bg:#FAF6F0; --card:#FFFFFF; --ink:#16324A; --soft:#5A7186;
-    --line:#EADFD2; --accent:#D05C14; --accent-soft:#FBEEDD;
-    --ok:#3E7C4F; --amber:#B07D2B; --gray:#8A97A3;
-    --shadow:0 2px 14px rgba(22,50,74,.07);
+    --bg:#191612; --card:#26221C; --card2:#2E2921; --line:#3B362B;
+    --ink:#F3ECDF; --soft:#B3A68F; --faint:#7E7462;
+    --accent:#D05C14; --accent-soft:#3A2417;
+    --ok:#7DB489; --amber:#D9A441; --gray:#8A8172;
+    --shadow:0 2px 16px rgba(0,0,0,.35);
     --radius:18px;
   }
   *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
@@ -24,17 +25,20 @@
   body{
     background:var(--bg); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-    max-width:430px; margin:0 auto; padding:0 16px 110px;
-    min-height:100vh;
+    max-width:430px; margin:0 auto; padding:0 16px 110px; min-height:100vh;
   }
-  header{padding:22px 2px 6px}
+  header{padding:24px 2px 6px}
   .hello{font-size:26px; font-weight:700; letter-spacing:-.3px}
   .date{color:var(--soft); font-size:14px; margin-top:2px}
-  .demo-tag{
-    display:inline-block; margin-top:10px; font-size:11px; font-weight:600;
-    color:var(--accent); background:var(--accent-soft);
-    padding:4px 9px; border-radius:999px; letter-spacing:.4px; text-transform:uppercase;
+  .live-tag{
+    display:inline-flex; align-items:center; gap:7px; margin-top:11px;
+    font-size:11.5px; font-weight:600; color:var(--ok);
+    background:rgba(125,180,137,.12); padding:5px 10px; border-radius:999px;
+    letter-spacing:.3px;
   }
+  .live-tag i{width:7px; height:7px; border-radius:50%; background:var(--ok); display:block}
+  .live-tag.stale{color:var(--amber); background:rgba(217,164,65,.12)}
+  .live-tag.stale i{background:var(--amber)}
   .card{
     background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
     box-shadow:var(--shadow); padding:18px; margin-top:14px;
@@ -44,16 +48,16 @@
     width:54px; height:54px; border-radius:50%; flex:0 0 54px;
     display:flex; align-items:center; justify-content:center;
     background:radial-gradient(circle at 50% 42%, #FFE9B8 0%, #FFC65C 55%, #F0A832 100%);
-    box-shadow:0 0 22px rgba(240,168,50,.55);
+    box-shadow:0 0 26px rgba(240,168,50,.5);
   }
-  .lamp.unlit{background:#E8E2D8; box-shadow:none}
+  .lamp.unlit{background:#3A352B; box-shadow:none}
   .lamp svg{width:30px; height:30px}
   .headline{font-family:Georgia,"Times New Roman",serif; font-size:25px; line-height:1.2; font-weight:600}
   .subline{color:var(--soft); font-size:14px; margin-top:3px}
   .quiet-lines{margin:14px 0 0; padding:0; list-style:none}
   .quiet-lines li{
-    font-size:15px; padding:8px 0 8px 22px; position:relative;
-    border-top:1px solid #F3EBDF;
+    font-size:15px; padding:8px 0 8px 22px; position:relative; line-height:1.45;
+    border-top:1px solid #332E25;
   }
   .quiet-lines li:first-child{border-top:none}
   .quiet-lines li::before{
@@ -61,34 +65,20 @@
     border-radius:50%; background:var(--accent);
   }
   .rhythm{margin-top:16px}
-  .rhythm-labels{display:flex; justify-content:space-between; font-size:11px; color:var(--soft); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px}
+  .rhythm-labels{display:flex; justify-content:space-between; font-size:11px; color:var(--faint); text-transform:uppercase; letter-spacing:.5px; margin-bottom:6px}
   .rhythm-bar{display:flex; gap:4px}
-  .rhythm-bar span{height:9px; border-radius:5px; background:#F0E4D3; flex:1}
+  .rhythm-bar span{height:9px; border-radius:5px; background:#38332A; flex:1}
   .rhythm-bar span.fill{background:var(--accent)}
   .btn-row{display:flex; gap:10px; margin-top:16px}
-  button{
-    font:inherit; cursor:pointer; border:none; border-radius:12px;
-    padding:12px 16px; font-size:15px; font-weight:600;
-  }
-  .btn-primary{background:var(--accent); color:#fff; flex:1}
-  .btn-ghost{background:#fff; color:var(--ink); border:1.5px solid var(--line); flex:1}
-  .seg{display:flex; background:#F1E7D7; border-radius:11px; padding:3px; margin-top:14px}
-  .seg button{flex:1; background:transparent; color:var(--soft); padding:8px; font-size:13px; border-radius:8px}
-  .seg button.on{background:#fff; color:var(--ink); box-shadow:0 1px 5px rgba(22,50,74,.12)}
+  button{font:inherit; cursor:pointer; border:none; border-radius:12px; padding:12px 16px; font-size:15px; font-weight:600}
+  .btn-primary{background:var(--accent); color:#FFF4E6; flex:1}
+  .btn-ghost{background:transparent; color:var(--ink); border:1.5px solid var(--line); flex:1}
   .card h3{margin:0 0 4px; font-size:16px}
   .card .hint{color:var(--soft); font-size:13px}
-  .live-line{font-size:15px; margin-top:8px}
-  .flag{
-    margin-top:10px; background:var(--accent-soft); border-radius:12px;
-    padding:10px 12px; font-size:14px; display:none;
-  }
-  .flag.show{display:block}
-  .cam-row{
-    display:flex; align-items:center; gap:12px; padding:11px 0;
-    border-top:1px solid #F3EBDF;
-  }
+  .live-line{font-size:15px; margin-top:8px; line-height:1.5}
+  .cam-row{display:flex; align-items:flex-start; gap:12px; padding:11px 0; border-top:1px solid #332E25}
   .cam-row:first-of-type{border-top:none}
-  .dot{width:10px; height:10px; border-radius:50%; flex:0 0 10px}
+  .dot{width:10px; height:10px; border-radius:50%; flex:0 0 10px; margin-top:5px}
   .dot.live{background:var(--ok)} .dot.low{background:var(--amber)} .dot.off{background:var(--gray)}
   .cam-name{font-size:15px; font-weight:600}
   .cam-status{font-size:13px; color:var(--soft)}
@@ -97,147 +87,86 @@
     display:flex; gap:8px; margin-top:14px; background:var(--card);
     border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow); padding:8px;
   }
-  .ask-bar input{
-    flex:1; border:none; outline:none; font:inherit; font-size:15px; padding:6px 8px; background:transparent; color:var(--ink);
-  }
-  .ask-bar button{background:var(--accent); color:#fff; padding:9px 14px; font-size:14px}
+  .ask-bar input{flex:1; border:none; outline:none; font:inherit; font-size:15px; padding:6px 8px; background:transparent; color:var(--ink)}
+  .ask-bar input::placeholder{color:var(--faint)}
+  .ask-bar button{background:var(--accent); color:#FFF4E6; padding:9px 14px; font-size:14px}
   .ask-answer{
     display:none; margin-top:10px; background:var(--card); border:1px solid var(--line);
     border-radius:14px; padding:13px 15px; font-size:15px; line-height:1.5; box-shadow:var(--shadow);
   }
   .ask-answer.show{display:block}
-  .timeline{display:none; margin-top:14px}
-  .timeline.show{display:block}
-  .frame{margin-top:12px}
-  .frame .scene{height:92px; border-radius:12px; position:relative; overflow:hidden}
-  .scene-kitchen{background:linear-gradient(180deg,#BFD9E8 0 55%,#E8D9BE 55% 100%)}
-  .scene-porch{background:linear-gradient(180deg,#F6C98B 0 60%,#C98F4E 60% 100%)}
-  .scene-night{background:linear-gradient(180deg,#27435E 0 60%,#16283A 60% 100%)}
-  .scene .time{
-    position:absolute; left:10px; bottom:8px; background:rgba(255,255,255,.88);
-    font-size:12px; font-weight:600; padding:3px 8px; border-radius:999px; color:var(--ink);
-  }
-  .frame p{font-size:14px; color:var(--ink); margin:7px 2px 0; line-height:1.45}
-  .frame p span{color:var(--soft)}
-  .week-row{display:flex; align-items:center; gap:10px; padding:10px 0; border-top:1px solid #F3EBDF}
+  .week-row{display:flex; align-items:center; gap:10px; padding:10px 0; border-top:1px solid #332E25}
   .week-row:first-of-type{border-top:none}
   .week-day{width:38px; font-weight:600; font-size:14px}
-  .week-bar{flex:1; height:8px; background:#F0E4D3; border-radius:5px; overflow:hidden}
+  .week-bar{flex:1; height:8px; background:#38332A; border-radius:5px; overflow:hidden}
   .week-bar i{display:block; height:100%; background:var(--accent)}
-  .week-note{width:118px; font-size:12.5px; color:var(--soft); text-align:right}
-  .toggle-row{display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-top:1px solid #F3EBDF}
+  .week-note{width:132px; font-size:12.5px; color:var(--soft); text-align:right}
+  .toggle-row{display:flex; align-items:center; justify-content:space-between; padding:11px 0; border-top:1px solid #332E25}
   .toggle-row:first-of-type{border-top:none}
   .toggle-row .t-name{font-size:15px; font-weight:600}
   .toggle-row .t-sub{font-size:13px; color:var(--soft); margin-top:1px}
-  .switch{width:50px; height:30px; border-radius:999px; background:#DAD2C4; position:relative; flex:0 0 50px; transition:background .2s}
-  .switch::after{content:""; position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.2); transition:left .2s}
+  .switch{width:50px; height:30px; border-radius:999px; background:#4A4436; position:relative; flex:0 0 50px; transition:background .2s}
+  .switch::after{content:""; position:absolute; top:3px; left:3px; width:24px; height:24px; border-radius:50%; background:#EDE4D2; box-shadow:0 1px 4px rgba(0,0,0,.4); transition:left .2s}
   .switch.on{background:var(--ok)}
   .switch.on::after{left:23px}
-  .privacy{font-size:14px; line-height:1.55; color:var(--ink)}
+  .privacy{font-size:14px; line-height:1.55}
   nav{
     position:fixed; left:50%; transform:translateX(-50%); bottom:0; width:100%; max-width:430px;
-    background:rgba(255,255,255,.94); backdrop-filter:blur(10px);
-    border-top:1px solid var(--line); display:flex; padding:8px 10px calc(10px + env(safe-area-inset-bottom));
-    z-index:10;
+    background:rgba(25,22,18,.95); backdrop-filter:blur(10px);
+    border-top:1px solid var(--line); display:flex; padding:8px 10px calc(10px + env(safe-area-inset-bottom)); z-index:10;
   }
   nav button{
-    flex:1; background:transparent; color:var(--soft); font-size:12px; font-weight:600;
+    flex:1; background:transparent; color:var(--faint); font-size:12px; font-weight:600;
     display:flex; flex-direction:column; align-items:center; gap:3px; padding:6px 0; border-radius:10px;
   }
   nav button.on{color:var(--accent)}
   nav svg{width:22px; height:22px}
   .view{display:none}
   .view.on{display:block}
+  .loading{color:var(--soft); font-size:15px; padding:30px 0; text-align:center}
 </style>
 </head>
 <body>
 
-<!-- TODAY VIEW -->
 <section class="view on" id="view-today">
   <header>
-    <div class="hello">Good morning, Alex</div>
-    <div class="date">Saturday, October 24 · Mom's house</div>
-    <span class="demo-tag">Demo · sample day</span>
+    <div class="hello" id="hello">Good evening, Alex</div>
+    <div class="date" id="date-line">Mom's house · Mocksville, NC</div>
+    <span class="live-tag stale" id="live-tag"><i></i><span id="live-tag-text">Connecting to the live feed...</span></span>
   </header>
 
   <div class="card">
     <div class="lamp-row">
-      <div class="lamp" id="lamp">
+      <div class="lamp unlit" id="lamp">
         <svg viewBox="0 0 24 24" fill="none" stroke="#7A4A12" stroke-width="1.8" stroke-linecap="round">
           <path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1 1.1 2.2h5c0-1.2.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/>
         </svg>
       </div>
       <div>
-        <div class="headline" id="headline">A normal day.</div>
-        <div class="subline" id="subline">Yesterday at Mom's house</div>
+        <div class="headline" id="headline">Reading the house...</div>
+        <div class="subline" id="subline"></div>
       </div>
     </div>
-    <ul class="quiet-lines" id="quiet-lines">
-      <li>First movement at 7:42 AM, right on her usual time.</li>
-      <li>Kitchen busy at breakfast, and again at lunch.</li>
-      <li>A walk to the porch in the afternoon sun.</li>
-      <li>House quiet by 9:48 PM.</li>
-    </ul>
+    <ul class="quiet-lines" id="quiet-lines"></ul>
     <div class="rhythm">
-      <div class="rhythm-labels"><span>Morning</span><span>Afternoon</span><span>Evening</span></div>
-      <div class="rhythm-bar" id="rhythm-bar">
-        <span class="fill"></span><span class="fill"></span><span class="fill"></span>
-        <span class="fill"></span><span class="fill"></span><span></span>
-        <span class="fill"></span><span class="fill"></span><span></span>
-      </div>
+      <div class="rhythm-labels"><span>Night</span><span>Morning</span><span>Afternoon</span><span>Evening</span></div>
+      <div class="rhythm-bar" id="rhythm-bar"></div>
     </div>
     <div class="btn-row">
-      <button class="btn-primary" id="see-day-btn">See the day</button>
-      <button class="btn-ghost" onclick="alert('Demo only. In the real app this calls Mom.')">Call Mom</button>
-    </div>
-    <div class="timeline" id="timeline">
-      <div class="frame">
-        <div class="scene scene-kitchen"><span class="time">7:42 AM · Kitchen</span></div>
-        <p>Tea kettle on, kitchen light on. <span>The day starts the way it usually starts.</span></p>
-      </div>
-      <div class="frame">
-        <div class="scene scene-porch"><span class="time">3:15 PM · Porch</span></div>
-        <p>Out to the porch with a book. <span>About twenty minutes of afternoon sun.</span></p>
-      </div>
-      <div class="frame">
-        <div class="scene scene-night"><span class="time">9:48 PM · Hallway</span></div>
-        <p>Lights out, house settling. <span>Quiet right on schedule.</span></p>
-      </div>
-    </div>
-    <div class="seg" role="group" aria-label="Demo day switch">
-      <button class="on" id="seg-normal">Demo: normal day</button>
-      <button id="seg-different">Demo: a different day</button>
+      <button class="btn-primary" onclick="refresh(true)">Refresh now</button>
+      <button class="btn-ghost" onclick="alert('Live version: this button places the call on the real phone build.')">Call Mom</button>
     </div>
   </div>
 
   <div class="card">
     <h3>Today so far</h3>
-    <div class="live-line" id="live-line">Last movement in the kitchen, 12 minutes ago. Today is tracking normal.</div>
-    <div class="flag" id="flag-box">Flag sent at 10:20 AM: this morning is running late. First movement came at 10:15, about two and a half hours past her usual.</div>
-    <div class="toggle-row">
-      <div>
-        <div class="t-name">Same-day flags</div>
-        <div class="t-sub">Porchlight speaks up when the day changes</div>
-      </div>
-      <div class="switch on" id="flag-toggle" role="switch" aria-checked="true" tabindex="0"></div>
-    </div>
+    <div class="live-line" id="live-line">Waiting on the feed.</div>
   </div>
 
   <div class="card">
     <h3>Cameras</h3>
-    <div class="hint">Porchlight keeps an eye on the cameras, too</div>
-    <div class="cam-row">
-      <span class="dot live"></span>
-      <div><div class="cam-name">Kitchen</div><div class="cam-status">Live · seeing the room fine</div></div>
-    </div>
-    <div class="cam-row">
-      <span class="dot low"></span>
-      <div><div class="cam-name">Doorbell</div><div class="cam-status">Live · battery low</div></div>
-    </div>
-    <div class="cam-row">
-      <span class="dot off"></span>
-      <div><div class="cam-name">Back Door</div><div class="cam-status">Offline since Sunday evening</div></div>
-    </div>
+    <div class="hint">Real status, straight from the Blink feed</div>
+    <div id="cam-list-today"><div class="loading">Loading cameras...</div></div>
   </div>
 
   <div class="ask-bar">
@@ -247,99 +176,44 @@
   <div class="ask-answer" id="ask-answer"></div>
 </section>
 
-<!-- RHYTHM VIEW -->
 <section class="view" id="view-rhythm">
   <header>
     <div class="hello">Her rhythm</div>
-    <div class="date">The ordinary pattern Porchlight learns from</div>
+    <div class="date">What the feed shows, day by day</div>
   </header>
   <div class="card">
     <h3>Her usual pattern</h3>
     <div class="privacy" style="margin-top:6px">
-      First movement most mornings between 7:30 and 8:00. The house stays active
-      through the day, kitchen at meals, porch in the afternoon. Quiet hours run
-      from about 9:45 PM to morning. One short bathroom trip most nights is
-      normal for her, and Porchlight knows it.
+      From the October logs: first movement most mornings between 7:30 and 8:00,
+      the house active through the day, quiet overnight. Porchlight compares each
+      day against that pattern and only speaks up when the day changes.
     </div>
   </div>
   <div class="card">
-    <h3>This week</h3>
-    <div class="week-row"><div class="week-day">Mon</div><div class="week-bar"><i style="width:88%"></i></div><div class="week-note">Up 7:35 AM · Normal</div></div>
-    <div class="week-row"><div class="week-day">Tue</div><div class="week-bar"><i style="width:92%"></i></div><div class="week-note">Up 7:50 AM · Normal</div></div>
-    <div class="week-row"><div class="week-day">Wed</div><div class="week-bar"><i style="width:85%"></i></div><div class="week-note">Up 7:44 AM · Normal</div></div>
-    <div class="week-row"><div class="week-day">Thu</div><div class="week-bar"><i style="width:40%"></i></div><div class="week-note">Up 10:15 AM · Quieter</div></div>
-    <div class="week-row"><div class="week-day">Fri</div><div class="week-bar"><i style="width:90%"></i></div><div class="week-note">Up 7:38 AM · Normal</div></div>
-    <div class="week-row"><div class="week-day">Sat</div><div class="week-bar"><i style="width:70%"></i></div><div class="week-note">So far · Normal</div></div>
-  </div>
-  <div class="card">
-    <h3>What counts as different</h3>
-    <div class="privacy" style="margin-top:6px">
-      A morning that starts hours late. A kitchen that stays quiet through a
-      mealtime. Movement at 3 AM that does not settle. A camera that stops
-      reporting. Ordinary days are never narrated. Only the change is.
-    </div>
+    <h3>The last seven days</h3>
+    <div id="week-list"><div class="loading">Loading the week...</div></div>
+    <div class="hint" style="margin-top:8px">The Blink cloud feed keeps a limited window. A day marked as a feed gap means the feed returned nothing for it, not that the house was still.</div>
   </div>
 </section>
 
-<!-- CAMERAS VIEW -->
 <section class="view" id="view-cameras">
   <header>
     <div class="hello">Cameras</div>
-    <div class="date">The cameras already at Mom's house</div>
+    <div class="date">The seven cameras at Mom's house</div>
   </header>
   <div class="card">
-    <div class="cam-row">
-      <span class="dot live"></span>
-      <div>
-        <div class="cam-name">Kitchen</div>
-        <div class="cam-status">Live</div>
-        <div class="cam-detail">Last frame a few minutes ago. This is the room that tells us the most about her day.</div>
-      </div>
-    </div>
-    <div class="cam-row">
-      <span class="dot live"></span>
-      <div>
-        <div class="cam-name">Living Room</div>
-        <div class="cam-status">Live</div>
-        <div class="cam-detail">Afternoon chair, television in the evening. Part of the learned rhythm.</div>
-      </div>
-    </div>
-    <div class="cam-row">
-      <span class="dot low"></span>
-      <div>
-        <div class="cam-name">Doorbell</div>
-        <div class="cam-status">Live · battery low</div>
-        <div class="cam-detail">Battery low. At her usual doorbell use, roughly two to three weeks left. Porchlight will say so again before it runs out.</div>
-      </div>
-    </div>
-    <div class="cam-row">
-      <span class="dot off"></span>
-      <div>
-        <div class="cam-name">Back Door</div>
-        <div class="cam-status">Offline since Sunday evening</div>
-        <div class="cam-detail">The battery reads fine, so this looks like a dropped connection, not a dead camera. A silent camera is news, and Porchlight treats it that way.</div>
-      </div>
-    </div>
-    <div class="cam-row">
-      <span class="dot live"></span>
-      <div>
-        <div class="cam-name">Porch</div>
-        <div class="cam-status">Live</div>
-        <div class="cam-detail">Packages, visitors, and her afternoon sit. People are counted as present, never named.</div>
-      </div>
-    </div>
+    <div id="cam-list-full"><div class="loading">Loading cameras...</div></div>
   </div>
   <div class="card">
     <h3>How Porchlight reads</h3>
     <div class="privacy" style="margin-top:6px">
       Presence and pattern only. A person at the door is a person at the door.
       There is no facial recognition, no identity tracking, and no clip library
-      to scroll through later.
+      to scroll through later. A silent camera is treated as news.
     </div>
   </div>
 </section>
 
-<!-- FAMILY VIEW -->
 <section class="view" id="view-family">
   <header>
     <div class="hello">Family</div>
@@ -398,7 +272,8 @@
 </nav>
 
 <script>
-  // Tab switching
+  var DATA = null;
+
   document.querySelectorAll('nav button').forEach(function(btn){
     btn.addEventListener('click', function(){
       document.querySelectorAll('nav button').forEach(function(b){ b.classList.remove('on'); });
@@ -409,82 +284,117 @@
     });
   });
 
-  // See the day timeline
-  var seeBtn = document.getElementById('see-day-btn');
-  var timeline = document.getElementById('timeline');
-  seeBtn.addEventListener('click', function(){
-    var open = timeline.classList.toggle('show');
-    seeBtn.textContent = open ? 'Hide the day' : (differentMode ? 'See why' : 'See the day');
-  });
-
-  // Demo day switch: normal vs different
-  var differentMode = false;
-  var segN = document.getElementById('seg-normal');
-  var segD = document.getElementById('seg-different');
-  var lamp = document.getElementById('lamp');
-  var headline = document.getElementById('headline');
-  var subline = document.getElementById('subline');
-  var quiet = document.getElementById('quiet-lines');
-  var liveLine = document.getElementById('live-line');
-  var flagBox = document.getElementById('flag-box');
-  var flagToggle = document.getElementById('flag-toggle');
-  var normalLines = [
-    'First movement at 7:42 AM, right on her usual time.',
-    'Kitchen busy at breakfast, and again at lunch.',
-    'A walk to the porch in the afternoon sun.',
-    'House quiet by 9:48 PM.'
-  ];
-  var differentLines = [
-    'No movement until 10:15 AM, hours past her usual.',
-    'The kitchen stayed quiet through breakfast.',
-    'It is a good morning to call.'
-  ];
-  function setMode(diff){
-    differentMode = diff;
-    segN.classList.toggle('on', !diff);
-    segD.classList.toggle('on', diff);
-    lamp.classList.toggle('unlit', diff);
-    headline.textContent = diff ? 'Today was quieter than usual.' : 'A normal day.';
-    subline.textContent = diff ? 'Thursday at Mom\'s house' : 'Yesterday at Mom\'s house';
-    quiet.innerHTML = (diff ? differentLines : normalLines).map(function(l){ return '<li>' + l + '</li>'; }).join('');
-    liveLine.textContent = diff
-      ? 'Nothing since the late start. Today is not tracking normal.'
-      : 'Last movement in the kitchen, 12 minutes ago. Today is tracking normal.';
-    flagBox.classList.toggle('show', diff && flagToggle.classList.contains('on'));
-    if (!timeline.classList.contains('show')) seeBtn.textContent = diff ? 'See why' : 'See the day';
-    if (diff) timeline.classList.remove('show');
-  }
-  segN.addEventListener('click', function(){ setMode(false); });
-  segD.addEventListener('click', function(){ setMode(true); });
-
-  // Same-day flags toggle
-  function flipSwitch(el){
-    el.classList.toggle('on');
-    el.setAttribute('aria-checked', el.classList.contains('on'));
-  }
   document.querySelectorAll('.switch').forEach(function(sw){
     sw.addEventListener('click', function(){
-      flipSwitch(sw);
-      if (sw === flagToggle) flagBox.classList.toggle('show', differentMode && sw.classList.contains('on'));
+      sw.classList.toggle('on');
+      sw.setAttribute('aria-checked', sw.classList.contains('on'));
     });
   });
 
-  // Ask Porchlight: canned demo answers
+  function camStatusText(c){
+    if (c.offline) return 'Offline';
+    if ((c.battery || '').toLowerCase() === 'low') return 'Live · battery low';
+    return 'Live';
+  }
+  function camDot(c){
+    if (c.offline) return 'off';
+    if ((c.battery || '').toLowerCase() === 'low') return 'low';
+    return 'live';
+  }
+  function camRow(c, full){
+    var detail = '';
+    if (c.offline) detail = 'Last event ' + (c.last_event || 'over a week ago') + '. Battery reads ok, so this looks like a dropped connection, not a dead camera.';
+    else if ((c.battery || '').toLowerCase() === 'low') detail = 'Battery low. Porchlight will keep naming it until it is changed.';
+    else if (c.last_event) detail = 'Last motion ' + c.last_event + '.';
+    else detail = 'Reporting in. No motion events in the feed window.';
+    return '<div class="cam-row"><span class="dot ' + camDot(c) + '"></span><div>' +
+      '<div class="cam-name">' + c.name + '</div>' +
+      '<div class="cam-status">' + camStatusText(c) + '</div>' +
+      (full ? '<div class="cam-detail">' + detail + '</div>' : '') +
+      '</div></div>';
+  }
+
+  function render(d){
+    DATA = d;
+    var h = new Date().getHours();
+    document.getElementById('hello').textContent =
+      (h < 12 ? 'Good morning' : h < 18 ? 'Good afternoon' : 'Good evening') + ', Alex';
+    var tag = document.getElementById('live-tag');
+    tag.classList.remove('stale');
+    document.getElementById('live-tag-text').textContent = 'Live · Updated ' + d.updated_at;
+    document.getElementById('lamp').classList.toggle('unlit', !(d.today && d.today.indoor_total > 0));
+    document.getElementById('headline').textContent = d.headline;
+    document.getElementById('subline').textContent = d.subline;
+    document.getElementById('quiet-lines').innerHTML =
+      d.lines.map(function(l){ return '<li>' + l + '</li>'; }).join('');
+
+    var parts = d.today.by_daypart;
+    var order = ['night','morning','afternoon','evening'];
+    var max = Math.max.apply(null, order.map(function(k){ return parts[k] || 0; }).concat([1]));
+    document.getElementById('rhythm-bar').innerHTML = order.map(function(k){
+      var n = parts[k] || 0;
+      var cells = '';
+      for (var i = 0; i < 3; i++) cells += '<span class="' + (n > (max * i / 3) && n > 0 ? 'fill' : '') + '"></span>';
+      return cells;
+    }).join('');
+
+    var t = d.today;
+    document.getElementById('live-line').textContent = t.total > 0
+      ? 'Last activity at ' + t.last + ' on the ' + t.last_camera + '. ' + t.total + ' motion events so far today.'
+      : 'No motion events yet today.';
+
+    var top = d.cameras.slice(0, 7).map(function(c){ return camRow(c, false); }).join('');
+    document.getElementById('cam-list-today').innerHTML = top;
+    document.getElementById('cam-list-full').innerHTML =
+      d.cameras.map(function(c){ return camRow(c, true); }).join('');
+
+    var maxTotal = Math.max.apply(null, d.week.map(function(w){ return w.total || 0; }).concat([1]));
+    document.getElementById('week-list').innerHTML = d.week.map(function(w){
+      if (w.total === null)
+        return '<div class="week-row"><div class="week-day">' + w.label + '</div><div class="week-bar"></div><div class="week-note">Feed gap</div></div>';
+      var note = w.total === 0 ? 'No events' :
+        (w.indoor_first ? 'Inside from ' + w.indoor_first : 'First ' + (w.first || '')) + ' · ' + w.total + ' events';
+      return '<div class="week-row"><div class="week-day">' + w.label + '</div>' +
+        '<div class="week-bar"><i style="width:' + Math.round(100 * (w.total || 0) / maxTotal) + '%"></i></div>' +
+        '<div class="week-note">' + note + '</div></div>';
+    }).join('');
+  }
+
+  function refresh(manual){
+    fetch('data.json?t=' + Date.now(), {cache: 'no-store'})
+      .then(function(r){ if (!r.ok) throw new Error('bad'); return r.json(); })
+      .then(render)
+      .catch(function(){
+        var tag = document.getElementById('live-tag');
+        tag.classList.add('stale');
+        document.getElementById('live-tag-text').textContent = 'Feed unreachable. Showing the last state I had.';
+        if (manual) alert('The live feed did not answer. Try again in a moment.');
+      });
+  }
+  refresh(false);
+  setInterval(function(){ refresh(false); }, 5 * 60 * 1000);
+
   var askInput = document.getElementById('ask-input');
   var askAnswer = document.getElementById('ask-answer');
   function answer(q){
+    if (!DATA) return 'The feed has not loaded yet. Give it a second and ask again.';
     q = q.toLowerCase();
+    var t = DATA.today;
     if (q.indexOf('battery') > -1 || q.indexOf('doorbell') > -1)
-      return 'The doorbell battery is low. At her usual doorbell use, roughly two to three weeks left. The Back Door camera is offline, but its battery reads fine, so that one looks like a dropped connection.';
-    if (q.indexOf('night') > -1 || q.indexOf('sleep') > -1)
-      return 'Last night was quiet. One bathroom trip at 2:10 AM, back to bed in about six minutes. That is normal for her, so it was not flagged.';
-    if (q.indexOf('visitor') > -1 || q.indexOf('mail') > -1 || q.indexOf('door') > -1 && q.indexOf('back') === -1)
-      return 'The mail carrier came at 11:05 AM. No other visitors today. People are noted as present, never named.';
+      return DATA.alerts.low_battery.length
+        ? 'The ' + DATA.alerts.low_battery.join(', ') + ' battery is low. Everything else reads ok.'
+        : 'No battery warnings right now.';
     if (q.indexOf('back door') > -1 || q.indexOf('offline') > -1)
-      return 'The Back Door camera has been offline since Sunday evening. Its battery reads fine, so this is likely a connection drop. Porchlight counts a silent camera as news, not as quiet.';
-    if (q.indexOf('eat') > -1 || q.indexOf('kitchen') > -1 || q.indexOf('lunch') > -1 || q.indexOf('breakfast') > -1)
-      return 'Kitchen activity at 7:50 AM and again at 12:20 PM, right in her usual meal windows.';
-    return 'Based on the pattern so far, today looks normal. First movement 7:42 AM, kitchen at her usual times, porch in the afternoon.';
+      return DATA.alerts.offline.length
+        ? 'Offline: ' + DATA.alerts.offline.join(', ') + '. Its battery reads ok, so it looks like a dropped connection. Porchlight counts a silent camera as news.'
+        : 'Every camera is reporting right now.';
+    if (q.indexOf('night') > -1 || q.indexOf('sleep') > -1)
+      return 'Overnight (midnight to 5 AM) the feed shows ' + (t.by_daypart.night || 0) + ' events today. Quiet nights are her normal.';
+    if (q.indexOf('last') > -1 || q.indexOf('when') > -1)
+      return t.total ? 'Last activity at ' + t.last + ' on the ' + t.last_camera + '.' : 'No activity yet today.';
+    if (q.indexOf('mom') > -1 || q.indexOf('today') > -1 || q.indexOf('how') > -1)
+      return DATA.headline + ' ' + DATA.lines[0];
+    return DATA.headline + ' ' + t.total + ' motion events so far today, last at ' + (t.last || 'none yet') + '.';
   }
   function ask(){
     var q = askInput.value.trim();
